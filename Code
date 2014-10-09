@@ -1,0 +1,74 @@
+public class Monty { //initializing variables
+	private int door_chosen;
+	private int choice;
+	private int door_reveal;
+	private int door_prize;
+	private int numberTrials;
+
+	public Monty(int user_choice, int trialsWanted) { //parameters
+		choice = user_choice;
+		numberTrials = trialsWanted;
+	}
+
+	public int simulate() {//simulate Monty Hall game
+		int winSwitch = 0;//initializing counters
+		int winStick = 0;//initializing counters
+
+		for (int i = 0; i < numberTrials; i++) { //increment i for each reiteration of loop
+			door_prize = numGen();
+			door_chosen = numGen();
+			showDoor();
+
+			if (choice == 1) { //if choose to stick, 
+				               //and door chosen is the door with car, increment winStick counter
+				if (door_chosen == door_prize)
+					winStick++;
+			}// end of if(choice ==1)
+			else {
+				userChoose(); //otherwise call userChoose and 
+				              //randomly generate a number to switch to a new door
+				if (door_chosen == door_prize)
+					winSwitch++;
+			}// end of else userChoose()
+		}// end of for-loop
+
+		if (choice == 1)//
+			return winStick;
+		else
+			return winSwitch;
+	}// end of method
+
+	private int numGen() { //randomly generates a number from 1-3
+		Random num_gen = new Random();
+		return num_gen.nextInt(3);
+	}
+
+	private void showDoor() { //Monty Hall revealing a door
+		boolean correct_choice = false;
+
+		while (correct_choice == false) {
+			door_reveal = numGen();
+			if (door_reveal == door_chosen || door_reveal == door_prize) {
+				correct_choice = false;
+			} else {
+				correct_choice = true;
+			}
+		}
+	}
+
+	private void userChoose() { //user decides to switch
+		int new_choice = -5;
+		boolean isOkay = false;
+
+		while (isOkay == false) {
+			new_choice = numGen();
+			if (new_choice == door_chosen || new_choice == door_reveal) {
+				isOkay = false;
+			} else {
+				isOkay = true;
+				door_chosen = new_choice;
+			}
+		}
+	}
+
+}
