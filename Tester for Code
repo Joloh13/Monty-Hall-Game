@@ -1,0 +1,15 @@
+public class montyhalltester
+{
+	public static void main(String[] args) 
+	{
+		//Create a new instance of montyhall class
+		Monty sim = new Monty(1,1000);
+		Monty sim2 = new Monty (2,1000);
+		
+		System.out.println("You have won " + sim.simulate() + " /1000");
+		System.out.println("You have won " + sim2.simulate() +  " /1000");
+		
+	}
+	
+	
+}
